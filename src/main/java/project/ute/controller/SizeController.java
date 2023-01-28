@@ -20,12 +20,12 @@ public class SizeController {
 	@Autowired
 	SizeService sizeService;
 
-	@RequestMapping(value = "/size/show-all", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@RequestMapping(value = "/api/size/show-all", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<?> showAllSize(@RequestParam("pageNo")Optional<Integer> pageNo) {
 		return ResponseEntity.status(HttpStatus.OK).body(sizeService.paging(pageNo));
 	}
 
-	@RequestMapping(value = "/size/show-with-size", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@RequestMapping(value = "/api/size/show-with-size", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<?> getSizeByName() {
 		return ResponseEntity.status(HttpStatus.OK).body(sizeService.getSizeByName("M", 20000));
 	}

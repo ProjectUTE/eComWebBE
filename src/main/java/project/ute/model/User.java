@@ -1,6 +1,12 @@
 package project.ute.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.annotation.Transient;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Users")
-public class User implements Serializable{
+public class User implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -26,10 +32,16 @@ public class User implements Serializable{
 	private String password;
 	
 	@Column(name="role")
-	private int role;
+	private String role;
 
 	public User() {
 
+	}
+	@Transient
+	public List<GrantedAuthority> getAuthorities() {
+	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+	    authorities.add(new SimpleGrantedAuthority(getRole()));
+	    return authorities;
 	}
 	
 	public String getId() {
@@ -56,14 +68,45 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
-	public void setRole(int role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
